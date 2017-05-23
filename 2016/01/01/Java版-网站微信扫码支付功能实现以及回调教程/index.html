@@ -1,0 +1,789 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Wechat支付 Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="最近在项目中需要实现支付功能，所以在需要在网站中接入微信和支付宝。趁着周末的时间，记录一下本周的收获。  我使用的微信支付是V3的版本扫码支付使用的是模式二项目使用的是spring+spring mvc + mybatis">
+<meta name="keywords" content="Wechat支付 Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 网站微信扫码支付功能实现以及回调教程">
+<meta property="og:url" content="http://homiss.me/2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/index.html">
+<meta property="og:site_name" content="Homiss">
+<meta property="og:description" content="最近在项目中需要实现支付功能，所以在需要在网站中接入微信和支付宝。趁着周末的时间，记录一下本周的收获。  我使用的微信支付是V3的版本扫码支付使用的是模式二项目使用的是spring+spring mvc + mybatis">
+<meta property="og:updated_time" content="2017-05-19T09:39:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 网站微信扫码支付功能实现以及回调教程">
+<meta name="twitter:description" content="最近在项目中需要实现支付功能，所以在需要在网站中接入微信和支付宝。趁着周末的时间，记录一下本周的收获。  我使用的微信支付是V3的版本扫码支付使用的是模式二项目使用的是spring+spring mvc + mybatis">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always',
+    motion: true
+  };
+</script>
+
+  <title> Java 网站微信扫码支付功能实现以及回调教程 | Homiss </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c566ea57a0b0478bf027852395f9b168";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Homiss</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Homiss</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java 网站微信扫码支付功能实现以及回调教程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-01T23:33:03+08:00" content="2016-01-01">
+              2016-01-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java三方平台/" itemprop="url" rel="index">
+                    <span itemprop="name">Java三方平台</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>最近在项目中需要实现支付功能，所以在需要在网站中接入微信和支付宝。趁着周末的时间，记录一下本周的收获。</p>
+<blockquote>
+<p>我使用的微信支付是V3的版本<br>扫码支付使用的是模式二<br>项目使用的是spring+spring mvc + mybatis</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="微信支付流程"><a href="#微信支付流程" class="headerlink" title="微信支付流程"></a>微信支付流程</h2><ol>
+<li><p>网站通过调用微信接口，获取到所要支付商品的二维码的链接code_url，然后输出到网页端显示</p>
+</li>
+<li><p>提示用户打开手机端微信进行扫码 </p>
+</li>
+<li><p>扫码完成进入支付页面，当用户付款后，微信会回调服务器接口，并带着支付状态信息等</p>
+</li>
+<li><p>通过返回的信息，就可以判断用户是否支付成功，并执行自己的业务逻辑</p>
+</li>
+</ol>
+<h2 id="微信业务流程时序图"><a href="#微信业务流程时序图" class="headerlink" title="微信业务流程时序图"></a>微信业务流程时序图</h2><p>业务流程说明：<br>（1）商户后台系统根据用户选购的商品生成订单。<br>（2）用户确认支付后调用微信支付【统一下单API】生成预支付交易；<br>（3）微信支付系统收到请求后生成预支付交易单，并返回交易会话的二维码链接code_url。<br>（4）商户后台系统根据返回的code_url生成二维码。<br>（5）用户打开微信“扫一扫”扫描二维码，微信客户端将扫码内容发送到微信支付系统。<br>（6）微信支付系统收到客户端请求，验证链接有效性后发起用户支付，要求用户授权。<br>（7）用户在微信客户端输入密码，确认支付后，微信客户端提交授权。<br>（8）微信支付系统根据用户授权完成支付交易。<br>（9）微信支付系统完成支付交易后给微信客户端返回交易结果，并将交易结果通过短信、微信消息提示用户。微信客户端展示支付交易结果页面。<br>（10）微信支付系统通过发送异步消息通知商户后台系统支付结果。商户后台系统需回复接收情况，通知微信后台系统不再发送该单的支付通知。<br>（11）未收到支付通知的情况，商户后台系统调用【查询订单API】。<br>（12）商户确认订单已支付后给用户发货。</p>
+<h2 id="具体开发"><a href="#具体开发" class="headerlink" title="具体开发"></a>具体开发</h2><p>微信支付需要在微信公众平台以及微信商户平台等申请到相应的权限，因为我这块不是我弄的，所以就不具体的说了。</p>
+<h3 id="接入前准备"><a href="#接入前准备" class="headerlink" title="接入前准备"></a>接入前准备</h3><p>在接入接口之前，我们还需要在微信公众平台中得到自己的账号信息，也就是请求时身份验证。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">邮件中参数</th>
+<th style="text-align:center">API参数名</th>
+<th style="text-align:center">详细说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">APPID</td>
+<td style="text-align:center">appid</td>
+<td style="text-align:center">appid是微信公众账号或开放平台APP的唯一标识，在公众平台申请公众账号或者在开放平台申请APP账号后，微信会自动分配对应的appid，用于标识该应用。可在微信公众平台–&gt;开发者中心查看，商户的微信支付审核通过邮件中也会包含该字段值。</td>
+</tr>
+<tr>
+<td style="text-align:center">微信支付商户号</td>
+<td style="text-align:center">mch_id</td>
+<td style="text-align:center">商户申请微信支付后，由微信支付分配的商户收款账号。</td>
+</tr>
+<tr>
+<td style="text-align:center">API密钥</td>
+<td style="text-align:center">key</td>
+<td style="text-align:center">交易过程生成签名的密钥，仅保留在商户系统和微信支付后台，不会在网络中传播。商户妥善保管该Key，切勿在网络中传输，不能在其他客户端中存储，保证key不会被泄漏。商户可根据邮件提示登录微信商户平台进行设置。也可按一下路径设置：微信商户平台(pay.weixin.qq.com)–&gt;账户设置–&gt;API安全–&gt;密钥设置</td>
+</tr>
+<tr>
+<td style="text-align:center">Appsecret</td>
+<td style="text-align:center">secret</td>
+<td style="text-align:center">AppSecret是APPID对应的接口密码，用于获取接口调用凭证access_token时使用。在微信支付中，先通过OAuth2.0接口获取用户openid，此openid用于微信内网页支付模式下单接口使用。在开发模式中获取AppSecret（成为开发者且帐号没有异常状态）。</td>
+</tr>
+</tbody>
+</table>
+<p>同时，我们还需要在微信公众平台设置测试授权目录</p>
+<p>到这里，我们就可以开始准备接入微信接口了。</p>
+<h3 id="接入微信接口"><a href="#接入微信接口" class="headerlink" title="接入微信接口"></a>接入微信接口</h3><p>获取微信支付二维码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 微信扫码支付-模式二</div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@version</span> 1.0, 2015/12/16</div><div class="line"> */</div><div class="line"> </div><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/config/weixinPay_notify"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ModelAndView <span class="title">wechatQrcodePay</span><span class="params">(HttpServletResponse response, HttpServletRequest request)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 账号信息</span></div><div class="line">        String appid = <span class="string">"wx135*********4f0d"</span>;  <span class="comment">// appid</span></div><div class="line">        String appsecret = <span class="string">"1350cf*******************040dac"</span>; <span class="comment">// appsecret</span></div><div class="line">        String mch_id = <span class="string">"12******01"</span>; <span class="comment">// 商业号</span></div><div class="line">        String key = <span class="string">"1350c********************0040dac"</span>; <span class="comment">// key</span></div><div class="line"></div><div class="line">        String currTime = TenpayUtil.getCurrTime();</div><div class="line">        String strTime = currTime.substring(<span class="number">8</span>, currTime.length());</div><div class="line">        String strRandom = TenpayUtil.buildRandom(<span class="number">4</span>) + <span class="string">""</span>;</div><div class="line">        String nonce_str = strTime + strRandom;</div><div class="line">        String order_price = <span class="string">"1"</span>; <span class="comment">// 价格   注意：价格的单位是分！！！不能为分数！！！！</span></div><div class="line">        String body = <span class="string">"Homiss"</span>;   <span class="comment">// 商品名称</span></div><div class="line">        String out_trade_no = <span class="string">"9527"</span>; <span class="comment">// 订单号</span></div><div class="line"></div><div class="line">        <span class="comment">// 获取发起电脑 ip</span></div><div class="line">        String spbill_create_ip = request.getRemoteAddr();</div><div class="line">        <span class="comment">// spbill_create_ip = "可能因为我的是内网，获取不到ip地址，所以我自己写的";</span></div><div class="line">        </div><div class="line">        <span class="comment">// 回调接口 </span></div><div class="line">        String notify_url = DOMAIN_TEST + <span class="string">"/config/weixinPay_result"</span>;</div><div class="line"></div><div class="line">        String trade_type = <span class="string">"NATIVE"</span>;</div><div class="line"></div><div class="line">        SortedMap&lt;String, String&gt; packageParams = <span class="keyword">new</span> TreeMap&lt;String, String&gt;();</div><div class="line">        packageParams.put(<span class="string">"appid"</span>, appid);</div><div class="line">        packageParams.put(<span class="string">"mch_id"</span>, mch_id);</div><div class="line">        packageParams.put(<span class="string">"nonce_str"</span>, nonce_str);</div><div class="line"></div><div class="line">        packageParams.put(<span class="string">"body"</span>, body);</div><div class="line">        packageParams.put(<span class="string">"out_trade_no"</span>, out_trade_no);</div><div class="line">        packageParams.put(<span class="string">"total_fee"</span>, order_price);</div><div class="line">        packageParams.put(<span class="string">"spbill_create_ip"</span>, spbill_create_ip);</div><div class="line">        packageParams.put(<span class="string">"notify_url"</span>, notify_url);</div><div class="line">        packageParams.put(<span class="string">"trade_type"</span>, trade_type);</div><div class="line"></div><div class="line">        RequestHandler requestHandler = <span class="keyword">new</span> RequestHandler(request, response);</div><div class="line">        requestHandler.init(appid, appsecret, key);</div><div class="line"></div><div class="line">        String sign = requestHandler.createSign(packageParams);</div><div class="line">        String xml=<span class="string">"&lt;xml&gt;"</span>+</div><div class="line">                <span class="string">"&lt;appid&gt;"</span>+appid+<span class="string">"&lt;/appid&gt;"</span>+</div><div class="line">                <span class="string">"&lt;mch_id&gt;"</span>+mch_id+<span class="string">"&lt;/mch_id&gt;"</span>+</div><div class="line">                <span class="string">"&lt;nonce_str&gt;"</span>+nonce_str+<span class="string">"&lt;/nonce_str&gt;"</span>+</div><div class="line">                <span class="string">"&lt;sign&gt;"</span>+sign+<span class="string">"&lt;/sign&gt;"</span>+</div><div class="line">                <span class="string">"&lt;body&gt;&lt;![CDATA["</span>+body+<span class="string">"]]&gt;&lt;/body&gt;"</span>+</div><div class="line">                <span class="string">"&lt;out_trade_no&gt;"</span>+out_trade_no+<span class="string">"&lt;/out_trade_no&gt;"</span>+</div><div class="line">                <span class="string">"&lt;total_fee&gt;"</span>+order_price+<span class="string">"&lt;/total_fee&gt;"</span>+</div><div class="line">                <span class="string">"&lt;spbill_create_ip&gt;"</span>+spbill_create_ip+<span class="string">"&lt;/spbill_create_ip&gt;"</span>+</div><div class="line">                <span class="string">"&lt;notify_url&gt;"</span>+notify_url+<span class="string">"&lt;/notify_url&gt;"</span>+</div><div class="line">                <span class="string">"&lt;trade_type&gt;"</span>+trade_type+<span class="string">"&lt;/trade_type&gt;"</span>+</div><div class="line">                <span class="string">"&lt;/xml&gt;"</span>;</div><div class="line"></div><div class="line">        String createOrderURL = <span class="string">"https://api.mch.weixin.qq.com/pay/unifiedorder"</span>;</div><div class="line">        String code_url ;</div><div class="line">        <span class="comment">// 获取返回的code_url值</span></div><div class="line">        code_url = <span class="keyword">new</span> GetWxOrderno().getUrlCode(createOrderURL, xml);</div><div class="line">        <span class="keyword">if</span>(code_url.equals(<span class="string">""</span>))&#123;</div><div class="line">            logger.debug(<span class="string">"code_url error"</span>);</div><div class="line">        &#125;</div><div class="line">        ModelAndView model = <span class="keyword">new</span> ModelAndView(<span class="string">"/wldm/common/pay/wechat"</span>);</div><div class="line">        </div><div class="line">        model.addObject(<span class="string">"code_url"</span>, code_url);</div><div class="line">        <span class="keyword">return</span> model;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>然后我们将获取到的code_url在页面上展示出来：<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"qcode"</span> src=<span class="string">"qr_code.img?code_url=$&#123;code_url&#125;"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.zghm.wldm.util.QRCodeUtil;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@version</span> 1.0, 2015/12/18</div><div class="line"> */</div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QrCodeImage</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/qr_code.img"</span>)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getQrCode</span><span class="params">(String code_url, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// String qrCode = QRCodeUtil.encode("qrCode", qrCodePath);</span></div><div class="line">        ServletOutputStream sos = response.getOutputStream();</div><div class="line">        QRCodeUtil.encode(code_url, sos);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不出意外的话，这里我们就可以使用自己手机端扫码支付了。</p>
+<h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><p>支付完成后，微信会把相关支付结果和用户信息发送给商户，商户需要接收处理，并返回应答。<br>对后台通知交互时，如果微信收到商户的应答不是成功或超时，微信认为通知失败，微信会通过一定的策略定期重新发起通知，尽可能提高通知的成功率，但微信不保证通知最终能成功。 （通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒）<br>注意：同样的通知可能会多次发送给商户系统。商户系统必须能够正确处理重复的通知。<br>推荐的做法是，当收到通知进行处理时，首先检查对应业务数据的状态，判断该通知是否已经处理过，如果没有处理过再进行处理，如果处理过直接返回结果成功。在对业务数据进行状态检查和处理之前，要采用数据锁进行并发控制，以避免函数重入造成的数据混乱。</p>
+<blockquote>
+<p>特别提醒：商户系统对于支付结果通知的内容一定要做<strong>签名验证</strong>，防止数据泄漏导致出现“假通知”，造成资金损失。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 微信回调接口</div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@version</span> 1.0, 2015/12/16</div><div class="line"> */</div><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/config/weixinPay_result"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wechatOrderBack</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">    <span class="comment">//---------------------------------------------------------</span></div><div class="line">    <span class="comment">//财付通支付通知（后台通知）</span></div><div class="line">    <span class="comment">//---------------------------------------------------------</span></div><div class="line">    <span class="comment">//商户号</span></div><div class="line">    String partner = <span class="string">"需要自己填写"</span>;</div><div class="line">    <span class="comment">//密钥</span></div><div class="line">    String key = <span class="string">"需要自己填写"</span>;</div><div class="line">    <span class="comment">//创建支付应答对象</span></div><div class="line">    ResponseHandler resHandler = <span class="keyword">new</span> ResponseHandler(request, response);</div><div class="line">    resHandler.setKey(key);</div><div class="line">    <span class="comment">//判断签名是否正确</span></div><div class="line">    <span class="keyword">if</span>(resHandler.isTenpaySign()) &#123;</div><div class="line">        <span class="comment">//------------------------------</span></div><div class="line">        <span class="comment">//处理业务开始</span></div><div class="line">        <span class="comment">//------------------------------</span></div><div class="line">        String resXml = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(<span class="string">"SUCCESS"</span>.equals(resHandler.getParameter(<span class="string">"result_code"</span>)))&#123;</div><div class="line">            <span class="comment">// 这里是支付成功</span></div><div class="line">            <span class="comment">//////////执行自己的业务逻辑////////////////</span></div><div class="line">            </div><div class="line">            </div><div class="line">            <span class="comment">//////////执行自己的业务逻辑////////////////</span></div><div class="line">            <span class="comment">// 同步返回给微信参数</span></div><div class="line">            <span class="comment">// resHandler.sendToCFT("SUCCESS");</span></div><div class="line">            <span class="comment">//通知微信.异步确认成功.必写.不然会一直通知后台.八次之后就认为交易失败了.</span></div><div class="line">            resXml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[SUCCESS]]&gt;&lt;/return_code&gt;"</span></div><div class="line">                    + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[OK]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            System.out.println(<span class="string">"支付失败,错误信息："</span> + resHandler.getParameter(<span class="string">"err_code"</span>));</div><div class="line">            resXml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[FAIL]]&gt;&lt;/return_code&gt;"</span></div><div class="line">                    + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[报文为空]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//------------------------------</span></div><div class="line">        <span class="comment">//处理业务完毕</span></div><div class="line">        <span class="comment">//------------------------------</span></div><div class="line">        BufferedOutputStream out = <span class="keyword">new</span> BufferedOutputStream(</div><div class="line">                response.getOutputStream());</div><div class="line">        out.write(resXml.getBytes());</div><div class="line">        out.flush();</div><div class="line">        out.close();</div><div class="line">    &#125; <span class="keyword">else</span>&#123;</div><div class="line">        System.out.println(<span class="string">"通知签名验证失败"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在做签名认证时，Google和百度了很多的教程，但是都没有发现有谁做了签名认证，只能参考其他地方的代码， 囧~</p>
+<blockquote>
+<p>签名算法<br>签名生成的通用步骤如下：<br>第一步，设所有发送或者接收到的数据为集合M，将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序），使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。<br>特别注意以下重要规则：<br>◆ 参数名ASCII码从小到大排序（字典序）；<br>◆ 如果参数的值为空不参与签名；<br>◆ 参数名区分大小写；<br>◆ 验证调用返回或微信主动通知签名时，传送的sign参数不参与签名，将生成的签名与该sign值作校验。<br>◆ 微信接口可能增加字段，验证签名时必须支持增加的扩展字段<br>第二步，在stringA最后拼接上key得到stringSignTemp字符串，并对stringSignTemp进行MD5运算，再将得到的字符串所有字符转换为大写，得到sign值signValue。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 是否签名正确,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。</div><div class="line"> * <span class="doctag">@return</span> boolean</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isTenpaySign</span><span class="params">()</span> </span>&#123;</div><div class="line">	StringBuffer sb = <span class="keyword">new</span> StringBuffer();</div><div class="line">	Set es = <span class="keyword">this</span>.parameters.entrySet();</div><div class="line">	Iterator it = es.iterator();</div><div class="line">	<span class="keyword">while</span>(it.hasNext()) &#123;</div><div class="line">		Map.Entry entry = (Map.Entry)it.next();</div><div class="line">		String k = (String)entry.getKey();</div><div class="line">		String v = (String)entry.getValue();</div><div class="line">		<span class="keyword">if</span>(!<span class="string">"sign"</span>.equals(k) &amp;&amp; <span class="keyword">null</span> != v &amp;&amp; !<span class="string">""</span>.equals(v)) &#123;</div><div class="line">			sb.append(k + <span class="string">"="</span> + v + <span class="string">"&amp;"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	sb.append(<span class="string">"key="</span> + <span class="keyword">this</span>.getKey());</div><div class="line">	</div><div class="line">	<span class="comment">//算出摘要</span></div><div class="line">	String enc = TenpayUtil.getCharacterEncoding(<span class="keyword">this</span>.request, <span class="keyword">this</span>.response);</div><div class="line">	String sign = MD5Util.MD5Encode(sb.toString(), enc).toLowerCase();</div><div class="line">	</div><div class="line">	String tenpaySign = <span class="keyword">this</span>.getParameter(<span class="string">"sign"</span>).toLowerCase();</div><div class="line">	</div><div class="line">	<span class="comment">//debug信息</span></div><div class="line">	<span class="keyword">this</span>.setDebugInfo(sb.toString() + <span class="string">" =&gt; sign:"</span> + sign +</div><div class="line">			<span class="string">" tenpaySign:"</span> + tenpaySign);</div><div class="line"></div><div class="line">	System.out.println(tenpaySign + <span class="string">"    "</span> + sign);</div><div class="line">	<span class="keyword">return</span> tenpaySign.equals(sign);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="退款"><a href="#退款" class="headerlink" title="退款"></a>退款</h3><p>当交易发生之后一段时间内，由于买家或者卖家的原因需要退款时，卖家可以通过退款接口将支付款退还给买家，微信支付将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上。<br>注意：<br>1、交易时间超过一年的订单无法提交退款；<br>2、微信支付退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。一笔退款失败后重新提交，要采用原来的退款单号。总退款金额不能超过用户实际支付金额。</p>
+<p>是否需要证书<br>请求需要双向证书。（需要在微信平台上下载）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.zghm.wldm.entity.ResultEntity;</div><div class="line"><span class="keyword">import</span> com.zghm.wldm.third.wechat.utils.GetWxOrderno;</div><div class="line"><span class="keyword">import</span> com.zghm.wldm.third.wechat.utils.RequestHandler;</div><div class="line"><span class="keyword">import</span> com.zghm.wldm.third.wechat.utils.TenpayUtil;</div><div class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"><span class="keyword">import</span> java.util.SortedMap;</div><div class="line"><span class="keyword">import</span> java.util.TreeMap;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * wldm</div><div class="line"> * 微信退款</div><div class="line"> *</div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@version</span> 1.0, 2015/12/21</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WechatRefundController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(WechatRefundController.class);</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ResultEntity <span class="title">wechatRefund</span><span class="params">(HttpServletResponse response, HttpServletRequest request)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</div><div class="line">        <span class="comment">// 返回信息</span></div><div class="line">        ResultEntity result = <span class="keyword">new</span> ResultEntity();</div><div class="line"></div><div class="line">        <span class="comment">// 账号信息</span></div><div class="line">        String appid = <span class="string">"wx13*******0d"</span>;  <span class="comment">// appid</span></div><div class="line">        String appsecret = <span class="string">"1350c************0040dac"</span>; <span class="comment">// appsecret</span></div><div class="line">        String mch_id = <span class="string">"1******201"</span>; <span class="comment">// 商业号</span></div><div class="line">        String key = <span class="string">"1350c************90040dac"</span>; <span class="comment">// key</span></div><div class="line"></div><div class="line">        String currTime = TenpayUtil.getCurrTime();</div><div class="line">        String strTime = currTime.substring(<span class="number">8</span>, currTime.length());</div><div class="line">        String strRandom = TenpayUtil.buildRandom(<span class="number">4</span>) + <span class="string">""</span>;</div><div class="line">        String nonce_str = strTime + strRandom;</div><div class="line"></div><div class="line">        SortedMap&lt;String, String&gt; parameters = <span class="keyword">new</span> TreeMap&lt;String, String&gt;();</div><div class="line">        parameters.put(<span class="string">"appid"</span>, appid);</div><div class="line">        parameters.put(<span class="string">"mch_id"</span>, mch_id);</div><div class="line">        parameters.put(<span class="string">"nonce_str"</span>, nonce_str);</div><div class="line">        <span class="comment">// 在notify_url中解析微信返回的信息获取到 transaction_id，此项不是必填，详细请看上图文档</span></div><div class="line">        <span class="comment">// parameters.put("transaction_id", "微信支付订单中调用统一接口后微信返回的 transaction_id");</span></div><div class="line">        parameters.put(<span class="string">"out_trade_no"</span>, <span class="string">"9527"</span>);</div><div class="line">        parameters.put(<span class="string">"out_refund_no"</span>, <span class="string">"9527"</span>);                              <span class="comment">//我们自己设定的退款申请号，约束为UK</span></div><div class="line">        parameters.put(<span class="string">"total_fee"</span>, <span class="string">"1"</span>);          <span class="comment">//单位为分</span></div><div class="line">        parameters.put(<span class="string">"refund_fee"</span>, <span class="string">"1"</span>);              <span class="comment">//单位为分</span></div><div class="line">        <span class="comment">// 操作员帐号, 默认为商户号</span></div><div class="line">        parameters.put(<span class="string">"op_user_id"</span>, mch_id);</div><div class="line">        RequestHandler requestHandler = <span class="keyword">new</span> RequestHandler(request, response);</div><div class="line">        requestHandler.init(appid, appsecret, key);</div><div class="line">        String sign = requestHandler.createSign(parameters);</div><div class="line"></div><div class="line">        String createOrderURL = <span class="string">"https://api.mch.weixin.qq.com/secapi/pay/refund"</span>;</div><div class="line"></div><div class="line">        String xml = <span class="string">"&lt;xml&gt;"</span></div><div class="line">                + <span class="string">"&lt;appid&gt;&lt;![CDATA["</span> + appid + <span class="string">"]]&gt;&lt;/appid&gt;"</span></div><div class="line">                + <span class="string">"&lt;mch_id&gt;&lt;![CDATA["</span> + mch_id +<span class="string">"]]&gt;&lt;/mch_id&gt;"</span></div><div class="line">                + <span class="string">"&lt;nonce_str&gt;&lt;![CDATA["</span> + nonce_str + <span class="string">"]]&gt;&lt;/nonce_str&gt;"</span></div><div class="line">                + <span class="string">"&lt;out_trade_no&gt;&lt;![CDATA["</span> + out_trade_no + <span class="string">"]]&gt;&lt;/out_trade_no&gt;"</span></div><div class="line">                + <span class="string">"&lt;out_refund_no&gt;&lt;![CDATA["</span> + out_refund_no + <span class="string">"]]&gt;&lt;/out_refund_no&gt;"</span></div><div class="line">                + <span class="string">"&lt;total_fee&gt;&lt;![CDATA["</span> + total_fee + <span class="string">"]]&gt;&lt;/total_fee&gt;"</span></div><div class="line">                + <span class="string">"&lt;refund_fee&gt;&lt;![CDATA["</span> + refund_fee + <span class="string">"]]&gt;&lt;/refund_fee&gt;"</span></div><div class="line">                + <span class="string">"&lt;op_user_id&gt;&lt;![CDATA["</span> + mch_id + <span class="string">"]]&gt;&lt;/op_user_id&gt;"</span></div><div class="line">                + <span class="string">"&lt;sign&gt;"</span> + sign + <span class="string">"&lt;/sign&gt;"</span></div><div class="line">                + <span class="string">"&lt;/xml&gt;"</span>;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Map map = GetWxOrderno.forRefund(createOrderURL, xml);</div><div class="line">            <span class="keyword">if</span>(map != <span class="keyword">null</span>)&#123;</div><div class="line">                String return_code = (String) map.get(<span class="string">"return_code"</span>);</div><div class="line">                String result_code = (String) map.get(<span class="string">"result_code"</span>);</div><div class="line">                <span class="keyword">if</span>(return_code.equals(<span class="string">"SUCCESS"</span>) &amp;&amp; result_code.equals(<span class="string">"SUCCESS"</span>))&#123;</div><div class="line">                    <span class="comment">// 退款成功</span></div><div class="line">                    result.setMsg(<span class="string">"退款成功"</span>);</div><div class="line">                    result.setFlag(<span class="number">1</span>);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    result.setMsg(<span class="string">"退款失败"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                result.setMsg(<span class="string">"退款失败"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.print(<span class="string">"退款失败"</span>);</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>现在只做了这几个功能，以后有机会的话会将剩下的补上。</p>
+</blockquote>
+<p>我将自己的代码放到github上，需要的看这里看这里：<br>    <a href="https://github.com/Homiss/WechatPay" target="_blank" rel="external">Github</a>    </p>
+<blockquote>
+<p><strong>注</strong>：代码是我从公司项目分离出来的，所以报错是肯定的，只是做一个参考</p>
+</blockquote>
+<p>参考网站：<br>    <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_1" target="_blank" rel="external">微信文档</a><br>    <a href="http://blog.csdn.net/Gekec/article/details/43486967" target="_blank" rel="external">【纯干货】微信支付接入攻略—JAVA代码分享</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Wechat支付-Java/" rel="tag">#Wechat支付 Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/26/Java UU163接口接入/" rel="next" title="Java UU163接口接入.md">
+                <i class="fa fa-chevron-left"></i> Java UU163接口接入.md
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/20/Java版 网站微信公众号支付实现/" rel="prev" title="Java版 网站微信公众号支付实现">
+                Java版 网站微信公众号支付实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7pulh4.com1.z0.glb.clouddn.com/1492996622516.jpg" alt="Homiss" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Homiss</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">自在如疯的骚年。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Homiss" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3608208964/home?topnav=1&wvr=6&mod=logo" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信支付流程"><span class="nav-number">1.</span> <span class="nav-text">微信支付流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信业务流程时序图"><span class="nav-number">2.</span> <span class="nav-text">微信业务流程时序图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体开发"><span class="nav-number">3.</span> <span class="nav-text">具体开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接入前准备"><span class="nav-number">3.1.</span> <span class="nav-text">接入前准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接入微信接口"><span class="nav-number">3.2.</span> <span class="nav-text">接入微信接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调"><span class="nav-number">3.3.</span> <span class="nav-text">回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#退款"><span class="nav-number">3.4.</span> <span class="nav-text">退款</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Homiss</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'homiss';
+      var disqus_identifier = '2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/';
+      var disqus_title = 'Java 网站微信扫码支付功能实现以及回调教程';
+      var disqus_url = 'http://homiss.me/2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

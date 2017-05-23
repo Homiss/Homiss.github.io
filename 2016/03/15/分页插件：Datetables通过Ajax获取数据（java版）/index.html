@@ -1,0 +1,748 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java Datetables," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="Datetables是一款jQuery表格插件，通过Datetables能够很好的实现表格分页、过滤、排序等功能。">
+<meta name="keywords" content="Java Datetables">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分页插件：Datetables通过Ajax获取数据（java版）">
+<meta property="og:url" content="http://homiss.me/2016/03/15/分页插件：Datetables通过Ajax获取数据（java版）/index.html">
+<meta property="og:site_name" content="Homiss">
+<meta property="og:description" content="Datetables是一款jQuery表格插件，通过Datetables能够很好的实现表格分页、过滤、排序等功能。">
+<meta property="og:image" content="http://7pulh4.com1.z0.glb.clouddn.com/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%EF%BC%9ADatetables%E9%80%9A%E8%BF%87Ajax%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE.png">
+<meta property="og:updated_time" content="2017-05-19T09:39:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分页插件：Datetables通过Ajax获取数据（java版）">
+<meta name="twitter:description" content="Datetables是一款jQuery表格插件，通过Datetables能够很好的实现表格分页、过滤、排序等功能。">
+<meta name="twitter:image" content="http://7pulh4.com1.z0.glb.clouddn.com/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%EF%BC%9ADatetables%E9%80%9A%E8%BF%87Ajax%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always',
+    motion: true
+  };
+</script>
+
+  <title> 分页插件：Datetables通过Ajax获取数据（java版） | Homiss </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c566ea57a0b0478bf027852395f9b168";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Homiss</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Homiss</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                分页插件：Datetables通过Ajax获取数据（java版）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-03-15T18:39:22+08:00" content="2016-03-15">
+              2016-03-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Datetables/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Datetables</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/03/15/分页插件：Datetables通过Ajax获取数据（java版）/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/15/分页插件：Datetables通过Ajax获取数据（java版）/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><blockquote>
+<p>Datetables是一款jQuery表格插件，通过Datetables能够很好的实现表格分页、过滤、排序等功能。</p>
+</blockquote>
+<a id="more"></a>
+<p>Datetables官方是这么介绍的：</p>
+<ul>
+<li>分页，即时搜索和排序</li>
+<li>几乎支持任何数据源：DOM， javascript， Ajax 和 服务器处理</li>
+<li>支持不同主题 DataTables, jQuery UI, Bootstrap, Foundation</li>
+<li>各式各样的扩展: Editor, TableTools, FixedColumns ……</li>
+<li>丰富多样的option和强大的API</li>
+<li>支持国际化</li>
+<li>超过2900+个单元测试</li>
+<li>免费开源 （ MIT license ）！ 商业支持</li>
+</ul>
+<p>Datetables运行效果：<br><img src="http://7pulh4.com1.z0.glb.clouddn.com/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%EF%BC%9ADatetables%E9%80%9A%E8%BF%87Ajax%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE.png" alt="Datetables"></p>
+<p>下面介绍下Datetables插件的具体使用。</p>
+<h3 id="引入相应的文件"><a href="#引入相应的文件" class="headerlink" title="引入相应的文件"></a>引入相应的文件</h3><p>jquery: jquery.min.js<br>Datetables:jquery.dataTables.min.js<br>具体文件可以去官网下载：<a href="http://datatables.club/" target="_blank" rel="external">Datetables中文网</a></p>
+<h3 id="JSP页面内容"><a href="#JSP页面内容" class="headerlink" title="JSP页面内容"></a>JSP页面内容</h3><ol>
+<li><p>确定表格的位置，放置如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table table-border table-bordered table-bg table-hover table-sort"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">"text-c"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"80"</span>&gt;</span>项目名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"80"</span>&gt;</span>旺旺名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"80"</span>&gt;</span>商品ID<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"60"</span>&gt;</span>商品类别<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"60"</span>&gt;</span>错误信息<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span> <span class="attr">width</span>=<span class="string">"60"</span>&gt;</span>日期<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>相关JavaScript代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'.table-sort'</span>).dataTable(&#123;</div><div class="line">    <span class="string">"bJQueryUI"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="string">"bPaginate"</span> : <span class="literal">true</span>,<span class="comment">// 分页按钮</span></div><div class="line">    <span class="string">"bFilter"</span> : <span class="literal">false</span>,<span class="comment">// 搜索栏</span></div><div class="line">    <span class="string">"bLengthChange"</span> : <span class="literal">true</span>,<span class="comment">// 每行显示记录数</span></div><div class="line">    <span class="string">"bInfo"</span> : <span class="literal">true</span>,<span class="comment">// Showing 1 to 10 of 23 entries 总记录数没也显示多少等信息</span></div><div class="line">    <span class="string">"bWidth"</span>:<span class="literal">true</span>,</div><div class="line">    <span class="string">"iDisplayLength"</span> : <span class="number">10</span>,<span class="comment">// 每页显示行数</span></div><div class="line">    <span class="string">"bStateSave"</span>: <span class="literal">true</span>,<span class="comment">//状态保存</span></div><div class="line">    <span class="string">"processing"</span>: <span class="literal">true</span>, <span class="comment">//打开数据加载时的等待效果</span></div><div class="line">    <span class="string">"serverSide"</span>: <span class="literal">true</span>,<span class="comment">//打开后台分页</span></div><div class="line">    <span class="string">"sAjaxSource"</span>: <span class="string">"Ajax请求地址"</span>,</div><div class="line">    <span class="string">"fnServerData"</span>: retrieveData,</div><div class="line">    <span class="string">"aoColumns"</span>:</div><div class="line">        [</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"name"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"shopId"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"itemId"</span>,<span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"cId"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"chnLog"</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">            &#123; <span class="string">"mData"</span>: <span class="string">"errDate"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;</div><div class="line">        ]</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 3个参数的名字可以随便命名,但必须是3个参数,少一个都不行</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">retrieveData</span>(<span class="params"> sSource,aoData, fnCallback</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> start = aoData[<span class="number">3</span>].value;</div><div class="line">    <span class="keyword">var</span> length = aoData[<span class="number">4</span>].value;</div><div class="line">    $.ajax(&#123;</div><div class="line">        <span class="attr">url</span> : sSource,<span class="comment">//这个就是请求地址对应sAjaxSource</span></div><div class="line">        data : &#123;<span class="string">"start"</span>:start, <span class="string">"length"</span>:length&#125;,<span class="comment">//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数</span></div><div class="line">        type : <span class="string">'post'</span>,</div><div class="line">        <span class="attr">dataType</span> : <span class="string">'json'</span>,</div><div class="line">        <span class="attr">async</span> : <span class="literal">false</span>,</div><div class="line">        <span class="attr">success</span> : <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</div><div class="line">            fnCallback(result);<span class="comment">//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">error</span> : <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在sAjaxSource中填入你请求数据的URL，在retrieveData方法中会根据sAjaxSource的值来请求具体的地址，其中aoData为Datetables自身传的各种参数，比如搜索内容，按哪一列排序，每页显示数等；可以直接传aoData到后台，也可以自己选择传参数到后台，这里我选择自己传参数。</p>
+<p>还有比较重要的是下面这段代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="string">"aoColumns"</span>:</div><div class="line">[</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"name"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"shopId"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"itemId"</span>,<span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"cId"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"chnLog"</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;,</div><div class="line">    &#123; <span class="string">"mData"</span>: <span class="string">"errDate"</span>, <span class="string">'sClass'</span>:<span class="string">'log-align'</span>, <span class="string">"bSortable"</span>: <span class="literal">false</span>&#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>每一行代表着html页面上的表格，下面这行中的cId是你返回数据对应的name，bSortable是当前行是否参与排序<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; "mData": "cId", 'sClass':'log-align', "bSortable": false&#125;,</div></pre></td></tr></table></figure></p>
+<p>还有个比较重要的就是如果我们需要自定义当前行，比如添加按钮等操作，我们可以修改为这样：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123; "mData": "category",'sClass':'log-align',"bSortable": false, "mRender":function(data,type,full)&#123;</div><div class="line">    var btn = "<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">'javascript:;'</span> <span class="attr">class</span>=<span class="string">'btn btn-default radius'</span>&gt;</span>"</div><div class="line">        + "<span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">'icon-trash'</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> 按钮<span class="tag">&lt;/<span class="name">a</span>&gt;</span>";</div><div class="line">    // full.cId  这样也可以取出cId的值</div><div class="line">    return btn;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="服务器接收请求"><a href="#服务器接收请求" class="headerlink" title="服务器接收请求"></a>服务器接收请求</h3><p>后台我使用的是Spring+Spring MVC+Mybatis框架，具体的代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/datetables"</span>, method = RequestMethod.POST)</div><div class="line"><span class="meta">@ResponseBody</span></div><div class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">datetables</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> length)</span> </span>&#123;</div><div class="line">    <span class="comment">// 计算页数</span></div><div class="line">    <span class="keyword">int</span> pageNum = start/length + <span class="number">1</span>;</div><div class="line">    Map&lt;String, Object&gt; result = logRecordService.listByLogId(status, pageNum, length);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是我们需要返回给前台的是JSON数据格式，所以我使用@ResponseBody注解来返回JSON数据。</p>
+<p>Datetables的基本使用差不多是这样，更多的用法可以查看官方网站：<a href="http://datatables.club/" target="_blank" rel="external">Datetables中文网</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Datetables/" rel="tag">#Java Datetables</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/02/JavaMelody系统监控的简单使用/" rel="next" title="JavaMelody系统监控的简单使用">
+                <i class="fa fa-chevron-left"></i> JavaMelody系统监控的简单使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/21/HashMap源码阅读/" rel="prev" title="HashMap源码阅读">
+                HashMap源码阅读 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7pulh4.com1.z0.glb.clouddn.com/1492996622516.jpg" alt="Homiss" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Homiss</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">自在如疯的骚年。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Homiss" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3608208964/home?topnav=1&wvr=6&mod=logo" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引入相应的文件"><span class="nav-number">1.</span> <span class="nav-text">引入相应的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP页面内容"><span class="nav-number">2.</span> <span class="nav-text">JSP页面内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器接收请求"><span class="nav-number">3.</span> <span class="nav-text">服务器接收请求</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Homiss</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'homiss';
+      var disqus_identifier = '2016/03/15/分页插件：Datetables通过Ajax获取数据（java版）/';
+      var disqus_title = '分页插件：Datetables通过Ajax获取数据（java版）';
+      var disqus_url = 'http://homiss.me/2016/03/15/分页插件：Datetables通过Ajax获取数据（java版）/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

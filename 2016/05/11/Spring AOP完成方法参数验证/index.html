@@ -1,0 +1,744 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SpringAOP 参数验证," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="为什么要进行参数验证在一个表单中，如果用户不按照既定的规则输入数据，则会导致数据库中产生脏数据。 为了保证项目的安全与稳定，永远不要相信来自于前端的输入，对用户的每一次输入，都必须进行严格的参数验证。">
+<meta name="keywords" content="SpringAOP 参数验证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring AOP完成方法参数验证">
+<meta property="og:url" content="http://homiss.me/2016/05/11/Spring AOP完成方法参数验证/index.html">
+<meta property="og:site_name" content="Homiss">
+<meta property="og:description" content="为什么要进行参数验证在一个表单中，如果用户不按照既定的规则输入数据，则会导致数据库中产生脏数据。 为了保证项目的安全与稳定，永远不要相信来自于前端的输入，对用户的每一次输入，都必须进行严格的参数验证。">
+<meta property="og:updated_time" content="2017-05-23T09:49:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring AOP完成方法参数验证">
+<meta name="twitter:description" content="为什么要进行参数验证在一个表单中，如果用户不按照既定的规则输入数据，则会导致数据库中产生脏数据。 为了保证项目的安全与稳定，永远不要相信来自于前端的输入，对用户的每一次输入，都必须进行严格的参数验证。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always',
+    motion: true
+  };
+</script>
+
+  <title> Spring AOP完成方法参数验证 | Homiss </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c566ea57a0b0478bf027852395f9b168";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Homiss</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Homiss</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring AOP完成方法参数验证
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-05-11T21:32:12+08:00" content="2016-05-11">
+              2016-05-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/05/11/Spring AOP完成方法参数验证/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/11/Spring AOP完成方法参数验证/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="为什么要进行参数验证"><a href="#为什么要进行参数验证" class="headerlink" title="为什么要进行参数验证"></a>为什么要进行参数验证</h2><p>在一个表单中，如果用户不按照既定的规则输入数据，则会导致数据库中产生脏数据。</p>
+<p>为了保证项目的安全与稳定，<strong>永远不要相信来自于前端的输入</strong>，对用户的每一次输入，都必须进行严格的参数验证。<br><a id="more"></a></p>
+<h2 id="参数验证方式"><a href="#参数验证方式" class="headerlink" title="参数验证方式"></a>参数验证方式</h2><p>参数验证主要有两种方式：</p>
+<ul>
+<li>前端JavaScript验证</li>
+<li>后端参数验证</li>
+</ul>
+<blockquote>
+<p>既然有了前端JavaScript验证，那为什么我们还需要后端参数验证？<br>因为JavaScript验证不是安全的，只要懂点前端知识的人都可以很轻易的绕过前端验证。</p>
+<p>既然前端JavaScript验证不安全，那么为什么不直接就用后端验证？<br>因为大部分用户都是正常使用软件的，前端验证可以极大的减少因为用户参数格式不对导致的无效请求，减少服务器压力；同时因为不需要请求后端，在速度上提升用户体验。</p>
+</blockquote>
+<p>关于前端JavaScript验证，感兴趣的可以看下这篇文章：<br><a href="https://www.kancloud.cn/digest/yvettelau/137637" target="_blank" rel="external">表单验证（登录/注册）</a></p>
+<h2 id="后端参数验证"><a href="#后端参数验证" class="headerlink" title="后端参数验证"></a>后端参数验证</h2><p>后端参数验证方式主要有以下几种：</p>
+<ul>
+<li>自己写代码对每个参数进行验证(不推荐)</li>
+<li>使用Hibernate的校验框架Validation</li>
+<li>使用AOP完成方法参数验证</li>
+</ul>
+<p>使用Hibernate的校验框架Validation做参数验证可以参考这篇文章：<a href="http://blog.csdn.net/eson_15/article/details/51725470" target="_blank" rel="external">【SpringMVC学习06】SpringMVC中的数据校验</a></p>
+<h3 id="使用Spring-AOP验证方法参数"><a href="#使用Spring-AOP验证方法参数" class="headerlink" title="使用Spring AOP验证方法参数"></a>使用Spring AOP验证方法参数</h3><p>方法参考自文章：<a href="http://www.cnblogs.com/yhtboke/p/5749053.html" target="_blank" rel="external">使用Spring Aop验证方法参数是否合法</a><br>自己在作者的基础上略作了些修改，使返回的错误提示更加友好。</p>
+<p>我们可以先看一下Controller中的使用效果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span>  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoControl</span> </span>&#123;  </div><div class="line">    <span class="meta">@ValidateGroup</span>(fileds = &#123;  </div><div class="line">    <span class="comment">//index=0 表示下面方法的第一个参数，也就是person  nutNull=true 表示不能为空  </span></div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">0</span> , notNull=<span class="keyword">true</span> ) ,  </div><div class="line">    <span class="comment">//index=0 表示第一个参数  filedName表示该参数的一个属性 ，也就是person.id 最小值为3 也就是 person.id 最小值为3  </span></div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">0</span> , paramDes = <span class="string">"id"</span>, notNull=<span class="keyword">true</span> , filedName=<span class="string">"id"</span> , minVal = <span class="number">3</span>) ,  </div><div class="line">    <span class="comment">//表示第一个参数的name 也就是person.name属性最大长度为10，最小长度为3  </span></div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">0</span> , paramDes = <span class="string">"姓名"</span>, notNull=<span class="keyword">true</span> , filedName=<span class="string">"name"</span> , maxLen = <span class="number">10</span> , minLen = <span class="number">3</span> ) ,  </div><div class="line">    <span class="comment">//index=1 表示第二个参数最大长度为5，最小长度为2  </span></div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">1</span> ,paramDes = <span class="string">"姓名"</span>,  notNull=<span class="keyword">true</span> , maxLen = <span class="number">5</span> , minLen = <span class="number">2</span> ) ,  </div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">2</span> ,paramDes = <span class="string">"年龄"</span>,  notNull=<span class="keyword">true</span> , maxVal = <span class="number">100</span> , minVal = <span class="number">18</span>),  </div><div class="line">    <span class="meta">@ValidateFiled</span>(index=<span class="number">3</span> ,paramDes = <span class="string">"邮箱"</span>,  notNull=<span class="keyword">false</span> , regStr= <span class="string">"^\\w+@\\w+\\.com$"</span> )  </div><div class="line">    &#125;)  </div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"savePerson"</span>)  </div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">savePerson</span><span class="params">(Person person , String name , <span class="keyword">int</span> age , String email)</span></span>&#123;  </div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView(<span class="string">"/index.jsp"</span>);  </div><div class="line">        System.out.println(<span class="string">"addPerson()方法调用成功！"</span>);  </div><div class="line">        <span class="keyword">return</span> mav ;        <span class="comment">//返回index.jsp视图  </span></div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在方法上直接通过注解验证参数的规范，优点很明显，一是直观，方便阅读；二是不跟业务逻辑代码耦合。</p>
+<p>下面给出具体代码。<br>ValidateFiled：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Target;</div><div class="line"></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ValidateFiled &#123;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 参数索引位置</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">index</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 接收的参数字段中文说明, 为了让返回错误提示更加友好</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">paramDes</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 如果参数是基本数据类型或String ，就不用指定该参数，如果参数是对象，要验证对象里面某个属性，就用该参数指定属性名</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">filedName</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 正则验证</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">regStr</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 是否能为空  ， 为true表示不能为空 ， false表示能够为空</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">notNull</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 是否能为空  ， 为true表示不能为空 ， false表示能够为空</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxLen</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 最小长度 ， 用户验证字符串</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minLen</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 最大值 ，用于验证数字类型数据</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxVal</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 最小值 ，用于验证数值类型数据</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minVal</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ValidateGroup：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Retention;  </div><div class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;  </div><div class="line"><span class="keyword">import</span> java.lang.annotation.Target;  </div><div class="line">  </div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)  </div><div class="line"><span class="meta">@Target</span>(ElementType.METHOD)  </div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ValidateGroup &#123;  </div><div class="line">    <span class="keyword">public</span> ValidateFiled[] fileds() ;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>验证注解处理类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> cn.zhikr.wechatshare.ann.ValidateFiled;</div><div class="line"><span class="keyword">import</span> cn.zhikr.wechatshare.ann.ValidateGroup;</div><div class="line"><span class="keyword">import</span> cn.zhikr.wechatshare.common.Result;</div><div class="line"><span class="keyword">import</span> java.lang.annotation.Annotation;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Around;</div><div class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 验证注解处理类</div><div class="line"> */</div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Aspect</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidateAspectHandel</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 使用AOP对使用了ValidateGroup的方法进行代理校验</div><div class="line">   */</div><div class="line">  <span class="meta">@SuppressWarnings</span>(&#123;<span class="string">"finally"</span>, <span class="string">"rawtypes"</span>&#125;)</div><div class="line">  <span class="meta">@Around</span>(<span class="string">"@annotation(cn.zhikr.wechatshare.ann.ValidateGroup)"</span>)</div><div class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">validateAround</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</div><div class="line">    ValidateGroup an = <span class="keyword">null</span>;</div><div class="line">    Object[] args = <span class="keyword">null</span>;</div><div class="line">    Method method = <span class="keyword">null</span>;</div><div class="line">    Object target = <span class="keyword">null</span>;</div><div class="line">    String methodName = <span class="keyword">null</span>;</div><div class="line">    Result&lt;String&gt; result = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      methodName = joinPoint.getSignature().getName();</div><div class="line">      target = joinPoint.getTarget();</div><div class="line">      method = getMethodByClassAndName(target.getClass(), methodName);    <span class="comment">//得到拦截的方法</span></div><div class="line">      args = joinPoint.getArgs();     <span class="comment">//方法的参数</span></div><div class="line">      an = (ValidateGroup) getAnnotationByMethod(method, ValidateGroup.class);</div><div class="line">      result = validateFiled(an.fileds(), args);</div><div class="line">      flag = result.isSuccess();</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">      flag = <span class="keyword">false</span>;</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">      <span class="keyword">if</span> (flag) &#123;</div><div class="line">        <span class="keyword">return</span> joinPoint.proceed();</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        Class returnType = method.getReturnType();  <span class="comment">//得到方法返回值类型</span></div><div class="line">        <span class="keyword">if</span> (returnType == ModelAndView.class) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"/error.jsp"</span>);<span class="comment">//返回错误页面</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 验证参数是否合法</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> Result&lt;String&gt; <span class="title">validateFiled</span><span class="params">(ValidateFiled[] valiedatefiles, Object[] args)</span></span></div><div class="line">      <span class="keyword">throws</span> SecurityException, IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException &#123;</div><div class="line">    Result&lt;String&gt; result = <span class="keyword">new</span> Result&lt;&gt;(<span class="string">"验证成功"</span>);</div><div class="line">    <span class="keyword">for</span> (ValidateFiled validateFiled : valiedatefiles) &#123;</div><div class="line">      Object arg = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">if</span> (<span class="string">""</span>.equals(validateFiled.filedName())) &#123;</div><div class="line">        arg = args[validateFiled.index()];</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        arg = getFieldByObjectAndFileName(args[validateFiled.index()],</div><div class="line">            validateFiled.filedName());</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (validateFiled.notNull()) &#123;        <span class="comment">//判断参数是否为空</span></div><div class="line">        <span class="keyword">if</span> (arg == <span class="keyword">null</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"不能为null"</span>, <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125; <span class="keyword">else</span> &#123;      <span class="comment">//如果该参数能够为空，并且当参数为空时，就不用判断后面的了 ，直接返回true</span></div><div class="line">        <span class="keyword">if</span> (arg == <span class="keyword">null</span>) &#123;</div><div class="line">          <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (validateFiled.maxLen() &gt; <span class="number">0</span>) &#123;      <span class="comment">//判断字符串最大长度</span></div><div class="line">        <span class="keyword">if</span> (((String) arg).length() &gt; validateFiled.maxLen()) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"长度不能超过"</span> + validateFiled.maxLen(),</div><div class="line">              <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (validateFiled.minLen() &gt; <span class="number">0</span>) &#123;      <span class="comment">//判断字符串最小长度</span></div><div class="line">        <span class="keyword">if</span> (((String) arg).length() &lt; validateFiled.minLen()) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"长度不能少于"</span> + validateFiled.maxLen(),</div><div class="line">              <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (validateFiled.maxVal() != -<span class="number">1</span>) &#123;   <span class="comment">//判断数值最大值</span></div><div class="line">        <span class="keyword">if</span> ((Integer) arg &gt; validateFiled.maxVal()) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"的值不能超过"</span> + validateFiled.maxVal(),</div><div class="line">              <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (validateFiled.minVal() != -<span class="number">1</span>) &#123;   <span class="comment">//判断数值最小值</span></div><div class="line">        <span class="keyword">if</span> ((Integer) arg &lt; validateFiled.minVal()) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"长度不能小于"</span> + validateFiled.minVal(),</div><div class="line">              <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (!<span class="string">""</span>.equals(validateFiled.regStr())) &#123; <span class="comment">//判断正则</span></div><div class="line">        <span class="keyword">if</span> (arg <span class="keyword">instanceof</span> String) &#123;</div><div class="line">          <span class="keyword">if</span> (!((String) arg).matches(validateFiled.regStr())) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"格式错误"</span>, <span class="keyword">false</span>);</div><div class="line">          &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;&gt;(validateFiled.paramDes() + <span class="string">"格式错误"</span>, <span class="keyword">false</span>);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 根据对象和属性名得到 属性</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">getFieldByObjectAndFileName</span><span class="params">(Object targetObj, String fileName)</span></span></div><div class="line">      <span class="keyword">throws</span> SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException &#123;</div><div class="line">    String tmp[] = fileName.split(<span class="string">"\\."</span>);</div><div class="line">    Object arg = targetObj;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tmp.length; i++) &#123;</div><div class="line">      Method methdo = arg.getClass().</div><div class="line">          getMethod(getGetterNameByFiledName(tmp[i]));</div><div class="line">      arg = methdo.invoke(arg);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> arg;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 根据属性名 得到该属性的getter方法名</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getGetterNameByFiledName</span><span class="params">(String fieldName)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"get"</span> + fieldName.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + fieldName.substring(<span class="number">1</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 根据目标方法和注解类型  得到该目标方法的指定注解</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> Annotation <span class="title">getAnnotationByMethod</span><span class="params">(Method method, Class annoClass)</span> </span>&#123;</div><div class="line">    Annotation all[] = method.getAnnotations();</div><div class="line">    <span class="keyword">for</span> (Annotation annotation : all) &#123;</div><div class="line">      <span class="keyword">if</span> (annotation.annotationType() == annoClass) &#123;</div><div class="line">        <span class="keyword">return</span> annotation;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 根据类和方法名得到方法</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> Method <span class="title">getMethodByClassAndName</span><span class="params">(Class c, String methodName)</span> </span>&#123;</div><div class="line">    Method[] methods = c.getDeclaredMethods();</div><div class="line">    <span class="keyword">for</span> (Method method : methods) &#123;</div><div class="line">      <span class="keyword">if</span> (method.getName().equals(methodName)) &#123;</div><div class="line">        <span class="keyword">return</span> method;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>统一的返回值：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</div><div class="line">    <span class="comment">// 操作结果是否成功</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> success;</div><div class="line">    <span class="comment">// 返回值</span></div><div class="line">    <span class="keyword">private</span> T data;</div><div class="line">    <span class="comment">// 如果报错，错误提示</span></div><div class="line">    <span class="keyword">private</span> String error;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">(T data)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.success = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">this</span>.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">(String error, <span class="keyword">boolean</span> success)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.success = success;</div><div class="line">        <span class="keyword">this</span>.error = error;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSuccess</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> success;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuccess</span><span class="params">(<span class="keyword">boolean</span> success)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.success = success;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.data = data;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getError</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> error;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setError</span><span class="params">(String error)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.error = error;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在spring-mvc.xml中加入配置：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;aop:aspectj-autoproxy proxy-target-class="true"&gt;&lt;/aop:aspectj-autoproxy&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最初我将上面这段代码加入到application.xml文件中，但是并没有生效，然后放到spring-mvc.xml中才成功的，据说是因为Spring MVC加载的是WebApplicationContext而不是ApplicationContext导致的。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>第一次体会到Spring AOP的强大之处，也发现自己的不足，懂的太少，要学的太多，走出舒适区，才能更好的成长！</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringAOP-参数验证/" rel="tag">#SpringAOP 参数验证</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/02/MySQL执行update,delete语句报Lock wait timeout exceeded错误/" rel="next" title="MySQL执行update,delete语句报Lock wait timeout exceeded错误">
+                <i class="fa fa-chevron-left"></i> MySQL执行update,delete语句报Lock wait timeout exceeded错误
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/11/JavaScript实现点击文字复制功能/" rel="prev" title="JavaScript实现点击文字复制功能">
+                JavaScript实现点击文字复制功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://7pulh4.com1.z0.glb.clouddn.com/1492996622516.jpg" alt="Homiss" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Homiss</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">自在如疯的骚年。</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Homiss" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Github
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3608208964/home?topnav=1&wvr=6&mod=logo" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要进行参数验证"><span class="nav-number">1.</span> <span class="nav-text">为什么要进行参数验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数验证方式"><span class="nav-number">2.</span> <span class="nav-text">参数验证方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端参数验证"><span class="nav-number">3.</span> <span class="nav-text">后端参数验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Spring-AOP验证方法参数"><span class="nav-number">3.1.</span> <span class="nav-text">使用Spring AOP验证方法参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Homiss</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'homiss';
+      var disqus_identifier = '2016/05/11/Spring AOP完成方法参数验证/';
+      var disqus_title = 'Spring AOP完成方法参数验证';
+      var disqus_url = 'http://homiss.me/2016/05/11/Spring AOP完成方法参数验证/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
