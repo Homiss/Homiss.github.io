@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="小功能," />
+  <meta name="keywords" content="Java Excel 小工具," />
 
 
 
@@ -51,17 +51,17 @@
 
 
 
-<meta name="description" content="通过360的手机查询接口获取到手机归属地。">
-<meta name="keywords" content="小功能">
+<meta name="description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
+<meta name="keywords" content="Java Excel 小工具">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java通过手机号获取归属地">
-<meta property="og:url" content="http://homiss.me/2017/06/10/Java通过手机号获取归属地/index.html">
+<meta property="og:title" content="Java POI读取excel">
+<meta property="og:url" content="http://homiss.me/2017/06/14/Java POI读取excel/index.html">
 <meta property="og:site_name" content="Homiss">
-<meta property="og:description" content="通过360的手机查询接口获取到手机归属地。">
-<meta property="og:updated_time" content="2017-06-21T11:37:49.000Z">
+<meta property="og:description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
+<meta property="og:updated_time" content="2017-06-21T11:59:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java通过手机号获取归属地">
-<meta name="twitter:description" content="通过360的手机查询接口获取到手机归属地。">
+<meta name="twitter:title" content="Java POI读取excel">
+<meta name="twitter:description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
 
 
 
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title> Java通过手机号获取归属地 | Homiss </title>
+  <title> Java POI读取excel | Homiss </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -223,7 +223,7 @@
             
             
               
-                Java通过手机号获取归属地
+                Java POI读取excel
               
             
           </h1>
@@ -232,8 +232,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2017-06-10T19:51:31+08:00" content="2017-06-10">
-              2017-06-10
+            <time itemprop="dateCreated" datetime="2017-06-14T19:41:35+08:00" content="2017-06-14">
+              2017-06-14
             </time>
           </span>
 
@@ -242,8 +242,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/小功能/" itemprop="url" rel="index">
-                    <span itemprop="name">小功能</span>
+                  <a href="/categories/Java-Excel-小工具/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Excel 小工具</span>
                   </a>
                 </span>
 
@@ -258,8 +258,8 @@
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2017/06/10/Java通过手机号获取归属地/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/10/Java通过手机号获取归属地/" itemprop="commentsCount"></span>
+              <a href="/2017/06/14/Java POI读取excel/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/14/Java POI读取excel/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -278,8 +278,8 @@
       
 
       
-        <span itemprop="articleBody"><p>通过360的手机查询接口获取到手机归属地。<br><a id="more"></a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> net.sf.json.JSONObject;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpClient;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpException;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpMethod;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.NameValuePair;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.methods.GetMethod;</div><div class="line"><span class="keyword">import</span> org.apache.commons.lang.StringUtils;  </div><div class="line">  </div><div class="line"><span class="comment">/**</span></div><div class="line"> * 手机信息查询工具类，主要实现根据手机号码查询手机归属地等信息。 </div><div class="line"> *  </div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@time</span> 2017-05-24</div><div class="line"> */  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MobilePhoneTool</span> </span>&#123;  </div><div class="line">    <span class="comment">/** </span></div><div class="line">     * 手机信息查询全局变量 </div><div class="line">     */  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"http://cx.shouji.360.cn/phonearea.php?number=17628294089"</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 响应包编码方式 </div><div class="line">     */  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String responseCharset = <span class="string">"UTF-8"</span>;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">getMobilePhone</span><span class="params">(String phone_number)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(<span class="string">"phone_number"</span>)) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        HttpClient client = <span class="keyword">new</span> HttpClient();  </div><div class="line">        <span class="comment">// get方式</span></div><div class="line">        HttpMethod method = <span class="keyword">new</span> GetMethod(URL);  </div><div class="line">        <span class="keyword">try</span> &#123;  </div><div class="line">            <span class="comment">// 设置get参数  </span></div><div class="line">            NameValuePair m = <span class="keyword">new</span> NameValuePair(<span class="string">"number"</span>, phone_number);</div><div class="line">            method.setQueryString(<span class="keyword">new</span> NameValuePair[] &#123; m &#125;);</div><div class="line">            <span class="comment">// 服务器返回的状态(200:ok)</span></div><div class="line">            <span class="keyword">int</span> statusCode = client.executeMethod(method);  </div><div class="line"></div><div class="line">            <span class="keyword">if</span> (statusCode == <span class="number">200</span>) &#123;</div><div class="line">                <span class="comment">// 服务器返回的信息  </span></div><div class="line">                String responseBody = <span class="keyword">new</span> String(method.getResponseBody(), responseCharset);  </div><div class="line">                <span class="keyword">if</span> (StringUtils.isNotEmpty(responseBody)) &#123;  </div><div class="line">                    JSONObject json = JSONObject.fromObject(responseBody);</div><div class="line">                    JSONObject obj = json.getJSONObject(<span class="string">"data"</span>);</div><div class="line">                    <span class="keyword">return</span> obj;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                System.out.println(<span class="string">"查询失败"</span>);  </div><div class="line">            &#125;  </div><div class="line">        &#125; <span class="keyword">catch</span> (HttpException e) &#123;  </div><div class="line">            e.printStackTrace();  </div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;  </div><div class="line">            e.printStackTrace();  </div><div class="line">        &#125; <span class="keyword">finally</span> &#123;  </div><div class="line">            <span class="comment">// 释放连接  </span></div><div class="line">            method.releaseConnection();  </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        JSONObject result = MobilePhoneTool.getMobilePhone(<span class="string">"17628294088"</span>);</div><div class="line">        System.out.println(result);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>Java使用Apache POI库读取Excel表格文档的简单示例。<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> cn.zhikr.wechatshare.businessUserInfo.pojo.FansInfo;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.PushbackInputStream;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> net.sf.json.JSONObject;</div><div class="line"><span class="keyword">import</span> org.apache.poi.POIXMLDocument;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.openxml4j.exceptions.InvalidFormatException;</div><div class="line"><span class="keyword">import</span> org.apache.poi.openxml4j.opc.OPCPackage;</div><div class="line"><span class="keyword">import</span> org.apache.poi.poifs.filesystem.POIFSFileSystem;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Row;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Sheet;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Workbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.xssf.usermodel.XSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * User : Homiss</div><div class="line"> * Date : 2017/4/7</div><div class="line"> * Time : 17:26</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XlsxUtil</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(XlsxUtil.class);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;FansInfo&gt; <span class="title">getList</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException, InvalidFormatException </span>&#123;</div><div class="line">    List&lt;FansInfo&gt; fansInfos = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    Workbook xwb = createworkbook(<span class="keyword">new</span> FileInputStream(path));</div><div class="line"></div><div class="line">    Sheet sheet = xwb.getSheetAt(<span class="number">0</span>);</div><div class="line">    Row row;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = sheet.getFirstRowNum(); i &lt; sheet.getPhysicalNumberOfRows(); i++) &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        row = sheet.getRow(i);</div><div class="line">        String name = row.getCell(<span class="number">0</span>) != <span class="keyword">null</span> ? row.getCell(<span class="number">0</span>).toString() : <span class="string">""</span>;</div><div class="line">        String phone = row.getCell(<span class="number">1</span>) != <span class="keyword">null</span> ? row.getCell(<span class="number">1</span>).toString() : <span class="string">""</span>;</div><div class="line">        System.out.println(name + <span class="string">"   "</span> + phone);</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> fansInfos;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Workbook <span class="title">createworkbook</span><span class="params">(InputStream inp)</span></span></div><div class="line">      <span class="keyword">throws</span> IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException &#123;</div><div class="line">    <span class="keyword">if</span> (!inp.markSupported()) &#123;</div><div class="line">      inp = <span class="keyword">new</span> PushbackInputStream(inp, <span class="number">8</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (POIFSFileSystem.hasPOIFSHeader(inp)) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> HSSFWorkbook(inp);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (POIXMLDocument.hasOOXMLHeader(inp)) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> XSSFWorkbook(OPCPackage.open(inp));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"你的excel版本目前poi解析不了"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InvalidFormatException </span>&#123;</div><div class="line">    getList(<span class="string">"C:\\Users\\My\\Desktop\\fans\\health.xls"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -288,7 +288,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/小功能/" rel="tag">#小功能</a>
+            <a href="/tags/Java-Excel-小工具/" rel="tag">#Java Excel 小工具</a>
           
         </div>
       
@@ -297,17 +297,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/11/Spring AOP完成方法参数验证/" rel="next" title="Spring AOP完成方法参数验证">
-                <i class="fa fa-chevron-left"></i> Spring AOP完成方法参数验证
+              <a href="/2017/06/10/Java通过手机号获取归属地/" rel="next" title="Java通过手机号获取归属地">
+                <i class="fa fa-chevron-left"></i> Java通过手机号获取归属地
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/14/Java POI读取excel/" rel="prev" title="Java POI读取excel">
-                Java POI读取excel <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -503,9 +499,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'homiss';
-      var disqus_identifier = '2017/06/10/Java通过手机号获取归属地/';
-      var disqus_title = 'Java通过手机号获取归属地';
-      var disqus_url = 'http://homiss.me/2017/06/10/Java通过手机号获取归属地/';
+      var disqus_identifier = '2017/06/14/Java POI读取excel/';
+      var disqus_title = 'Java POI读取excel';
+      var disqus_url = 'http://homiss.me/2017/06/14/Java POI读取excel/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
