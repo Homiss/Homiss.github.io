@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mybatis spring sql语句," />
+  <meta name="keywords" content="Java Excel 小工具," />
 
 
 
@@ -51,17 +51,17 @@
 
 
 
-<meta name="description" content="在spring-mybatis.xml文件中：1234567891011121314151617181920&amp;lt;!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 --&amp;gt;&amp;lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&amp;gt;	&amp;lt;proper">
-<meta name="keywords" content="mybatis spring sql语句">
+<meta name="description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
+<meta name="keywords" content="Java Excel 小工具">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring+mybatis配置文件打印sql语句">
-<meta property="og:url" content="http://homiss.me/2015/11/15/Spring+mybatis配置文件打印sql语句/index.html">
+<meta property="og:title" content="Java POI读取excel">
+<meta property="og:url" content="http://homiss.me/2017/06/15/Java POI读取excel/index.html">
 <meta property="og:site_name" content="Homiss">
-<meta property="og:description" content="在spring-mybatis.xml文件中：1234567891011121314151617181920&amp;lt;!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 --&amp;gt;&amp;lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&amp;gt;	&amp;lt;proper">
-<meta property="og:updated_time" content="2017-05-19T09:39:20.000Z">
+<meta property="og:description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
+<meta property="og:updated_time" content="2017-06-21T11:37:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring+mybatis配置文件打印sql语句">
-<meta name="twitter:description" content="在spring-mybatis.xml文件中：1234567891011121314151617181920&amp;lt;!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 --&amp;gt;&amp;lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&amp;gt;	&amp;lt;proper">
+<meta name="twitter:title" content="Java POI读取excel">
+<meta name="twitter:description" content="Java使用Apache POI库读取Excel表格文档的简单示例。">
 
 
 
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title> Spring+mybatis配置文件打印sql语句 | Homiss </title>
+  <title> Java POI读取excel | Homiss </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -223,7 +223,7 @@
             
             
               
-                Spring+mybatis配置文件打印sql语句
+                Java POI读取excel
               
             
           </h1>
@@ -232,8 +232,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-11-15T15:31:23+08:00" content="2015-11-15">
-              2015-11-15
+            <time itemprop="dateCreated" datetime="2017-06-15T18:41:35+08:00" content="2017-06-15">
+              2017-06-15
             </time>
           </span>
 
@@ -242,8 +242,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
-                    <span itemprop="name">Mybatis</span>
+                  <a href="/categories/Java-Excel-小工具/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Excel 小工具</span>
                   </a>
                 </span>
 
@@ -258,8 +258,8 @@
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/15/Spring+mybatis配置文件打印sql语句/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/15/Spring+mybatis配置文件打印sql语句/" itemprop="commentsCount"></span>
+              <a href="/2017/06/15/Java POI读取excel/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/15/Java POI读取excel/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -278,12 +278,8 @@
       
 
       
-        <span itemprop="articleBody"><p>在spring-mybatis.xml文件中：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 --&gt;</div><div class="line">&lt;bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;</div><div class="line">	&lt;property name="dataSource" ref="dataSource" /&gt;</div><div class="line">	&lt;!-- 自动扫描mapping.xml文件 --&gt;</div><div class="line">	&lt;property name="mapperLocations" value="classpath:com/zghm/bhzg/mapping/*Mapper.xml"&gt;&lt;/property&gt;</div><div class="line">	&lt;property name="plugins"&gt;</div><div class="line">	    &lt;array&gt;</div><div class="line">	      &lt;bean class="com.github.pagehelper.PageHelper"&gt;</div><div class="line">	      	&lt;property name="properties"&gt;</div><div class="line">	          &lt;value&gt;</div><div class="line">	            dialect=oracle</div><div class="line">		        reasonable=true</div><div class="line">		        pageSizeZero=true</div><div class="line">	          &lt;/value&gt;</div><div class="line">	        &lt;/property&gt;</div><div class="line">	      &lt;/bean&gt;</div><div class="line">	    &lt;/array&gt;</div><div class="line">	&lt;/property&gt;</div><div class="line">	&lt;property name="configLocation" value="classpath:mybatis-config.xml"&gt;&lt;/property&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>主要加入的是：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;property name="configLocation" value="classpath:mybatis-config.xml"&gt;&lt;/property&gt;</div></pre></td></tr></table></figure></p>
-<p>而这一段代码是我使用的pageHelper配置：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;property name="plugins"&gt;</div><div class="line">    &lt;array&gt;</div><div class="line">      &lt;bean class="com.github.pagehelper.PageHelper"&gt;</div><div class="line">      	&lt;property name="properties"&gt;</div><div class="line">          &lt;value&gt;</div><div class="line">            dialect=oracle</div><div class="line">	        reasonable=true</div><div class="line">	        pageSizeZero=true</div><div class="line">          &lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">      &lt;/bean&gt;</div><div class="line">    &lt;/array&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure></p>
-<p>然后在mybatis-config.xml文件中加入：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</div><div class="line">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" </div><div class="line">"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</div><div class="line">&lt;configuration&gt;  </div><div class="line">    &lt;settings&gt;  </div><div class="line">        &lt;setting name="logImpl" value="LOG4J"/&gt;  </div><div class="line">    &lt;/settings&gt;  </div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
-<p>log4j.properties<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Global logging configuration</div><div class="line">log4j.rootLogger=ERROR, stdout</div><div class="line"># MyBatis logging configuration...</div><div class="line">log4j.logger.org.mybatis.example.BlogMapper=TRACE</div><div class="line"># Console output...</div><div class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div><div class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n</div></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><p>Java使用Apache POI库读取Excel表格文档的简单示例。<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> cn.zhikr.wechatshare.businessUserInfo.pojo.FansInfo;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.InputStream;</div><div class="line"><span class="keyword">import</span> java.io.PushbackInputStream;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> net.sf.json.JSONObject;</div><div class="line"><span class="keyword">import</span> org.apache.poi.POIXMLDocument;</div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.openxml4j.exceptions.InvalidFormatException;</div><div class="line"><span class="keyword">import</span> org.apache.poi.openxml4j.opc.OPCPackage;</div><div class="line"><span class="keyword">import</span> org.apache.poi.poifs.filesystem.POIFSFileSystem;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Row;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Sheet;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Workbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.xssf.usermodel.XSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * User : Homiss</div><div class="line"> * Date : 2017/4/7</div><div class="line"> * Time : 17:26</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XlsxUtil</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(XlsxUtil.class);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;FansInfo&gt; <span class="title">getList</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException, InvalidFormatException </span>&#123;</div><div class="line">    List&lt;FansInfo&gt; fansInfos = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    Workbook xwb = createworkbook(<span class="keyword">new</span> FileInputStream(path));</div><div class="line"></div><div class="line">    Sheet sheet = xwb.getSheetAt(<span class="number">0</span>);</div><div class="line">    Row row;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = sheet.getFirstRowNum(); i &lt; sheet.getPhysicalNumberOfRows(); i++) &#123;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        row = sheet.getRow(i);</div><div class="line">        String name = row.getCell(<span class="number">0</span>) != <span class="keyword">null</span> ? row.getCell(<span class="number">0</span>).toString() : <span class="string">""</span>;</div><div class="line">        String phone = row.getCell(<span class="number">1</span>) != <span class="keyword">null</span> ? row.getCell(<span class="number">1</span>).toString() : <span class="string">""</span>;</div><div class="line">        System.out.println(name + <span class="string">"   "</span> + phone);</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> fansInfos;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Workbook <span class="title">createworkbook</span><span class="params">(InputStream inp)</span></span></div><div class="line">      <span class="keyword">throws</span> IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException &#123;</div><div class="line">    <span class="keyword">if</span> (!inp.markSupported()) &#123;</div><div class="line">      inp = <span class="keyword">new</span> PushbackInputStream(inp, <span class="number">8</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (POIFSFileSystem.hasPOIFSHeader(inp)) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> HSSFWorkbook(inp);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (POIXMLDocument.hasOOXMLHeader(inp)) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> XSSFWorkbook(OPCPackage.open(inp));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"你的excel版本目前poi解析不了"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InvalidFormatException </span>&#123;</div><div class="line">    getList(<span class="string">"C:\\Users\\My\\Desktop\\fans\\health.xls"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -292,7 +288,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mybatis-spring-sql语句/" rel="tag">#mybatis spring sql语句</a>
+            <a href="/tags/Java-Excel-小工具/" rel="tag">#Java Excel 小工具</a>
           
         </div>
       
@@ -301,17 +297,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/29/【转】如何在Java中定义常量(Constant)/" rel="next" title="【转】如何在Java中定义常量(Constant)">
-                <i class="fa fa-chevron-left"></i> 【转】如何在Java中定义常量(Constant)
+              <a href="/2017/06/10/Java通过手机号获取归属地/" rel="next" title="Java通过手机号获取归属地">
+                <i class="fa fa-chevron-left"></i> Java通过手机号获取归属地
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/" rel="prev" title="Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN">
-                Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -507,9 +499,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'homiss';
-      var disqus_identifier = '2015/11/15/Spring+mybatis配置文件打印sql语句/';
-      var disqus_title = 'Spring+mybatis配置文件打印sql语句';
-      var disqus_url = 'http://homiss.me/2015/11/15/Spring+mybatis配置文件打印sql语句/';
+      var disqus_identifier = '2017/06/15/Java POI读取excel/';
+      var disqus_title = 'Java POI读取excel';
+      var disqus_url = 'http://homiss.me/2017/06/15/Java POI读取excel/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
