@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Exception," />
+  <meta name="keywords" content="小功能," />
 
 
 
@@ -51,17 +51,17 @@
 
 
 
-<meta name="description" content="在做单元测试时，提示错误，但是项目能够正常运行。错误信息1234567891011121314151617181920212223242526272829303132java.lang.ExceptionInInitializerError	at org.springframework.mock.web.MockHttpServletResponse.&amp;lt;init&amp;gt;(MockHttpSe">
-<meta name="keywords" content="Exception">
+<meta name="description" content="主要通过360的手机查询接口获取到手机归属地。">
+<meta name="keywords" content="小功能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Can&#39;t find bundle for base name javax.servlet.LocalStrings, locale zh_CN">
-<meta property="og:url" content="http://homiss.me/2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/index.html">
+<meta property="og:title" content="Java通过手机号获取归属地">
+<meta property="og:url" content="http://homiss.me/2017/06/10/Java通过手机号获取归属地/index.html">
 <meta property="og:site_name" content="Homiss">
-<meta property="og:description" content="在做单元测试时，提示错误，但是项目能够正常运行。错误信息1234567891011121314151617181920212223242526272829303132java.lang.ExceptionInInitializerError	at org.springframework.mock.web.MockHttpServletResponse.&amp;lt;init&amp;gt;(MockHttpSe">
-<meta property="og:updated_time" content="2017-05-19T09:39:06.000Z">
+<meta property="og:description" content="主要通过360的手机查询接口获取到手机归属地。">
+<meta property="og:updated_time" content="2017-06-21T11:26:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Can&#39;t find bundle for base name javax.servlet.LocalStrings, locale zh_CN">
-<meta name="twitter:description" content="在做单元测试时，提示错误，但是项目能够正常运行。错误信息1234567891011121314151617181920212223242526272829303132java.lang.ExceptionInInitializerError	at org.springframework.mock.web.MockHttpServletResponse.&amp;lt;init&amp;gt;(MockHttpSe">
+<meta name="twitter:title" content="Java通过手机号获取归属地">
+<meta name="twitter:description" content="主要通过360的手机查询接口获取到手机归属地。">
 
 
 
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title> Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN | Homiss </title>
+  <title> Java通过手机号获取归属地 | Homiss </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -223,7 +223,7 @@
             
             
               
-                Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN
+                Java通过手机号获取归属地
               
             
           </h1>
@@ -232,8 +232,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-13T12:38:33+08:00" content="2015-12-13">
-              2015-12-13
+            <time itemprop="dateCreated" datetime="2017-06-10T19:51:31+08:00" content="2017-06-10">
+              2017-06-10
             </time>
           </span>
 
@@ -242,8 +242,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Exception/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Exception</span>
+                  <a href="/categories/小功能/" itemprop="url" rel="index">
+                    <span itemprop="name">小功能</span>
                   </a>
                 </span>
 
@@ -258,8 +258,8 @@
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/" itemprop="commentsCount"></span>
+              <a href="/2017/06/10/Java通过手机号获取归属地/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/10/Java通过手机号获取归属地/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -278,12 +278,8 @@
       
 
       
-        <span itemprop="articleBody"><p>在做单元测试时，提示错误，但是项目能够正常运行。<br>错误信息<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">java.lang.ExceptionInInitializerError</div><div class="line">	at org.springframework.mock.web.MockHttpServletResponse.&lt;init&gt;(MockHttpServletResponse.java:76)</div><div class="line">	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:172)</div><div class="line">	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:100)</div><div class="line">	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:319)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:212)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)</div><div class="line">	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:232)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)</div><div class="line">	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)</div><div class="line">	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)</div><div class="line">	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)</div><div class="line">	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)</div><div class="line">	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)</div><div class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)</div><div class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)</div><div class="line">	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)</div><div class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:175)</div><div class="line">	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)</div><div class="line">	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)</div><div class="line">	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)</div><div class="line">	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)</div><div class="line">	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)</div><div class="line">	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)</div><div class="line">Caused by: java.util.MissingResourceException: Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN</div><div class="line">	at java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:1499)</div><div class="line">	at java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1322)</div><div class="line">	at java.util.ResourceBundle.getBundle(ResourceBundle.java:721)</div><div class="line">	at javax.servlet.ServletOutputStream.&lt;clinit&gt;(ServletOutputStream.java:87)</div><div class="line">	... 25 more</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>错误的原因是：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Caused by: java.util.MissingResourceException: Can<span class="string">'t find bundle for base name javax.servlet.LocalStrings, locale zh_CN</span></div></pre></td></tr></table></figure>
-<p>百度结果是说没有找到LocalStrings_zh_CN.properties 文件.但是我项目根本没有引入这个文件。</p>
-<p>后来改用Google才知道是因为servlet-api.jar这个包，在java build path下引入tomcat\lib下的servlet-api.jar就ok了。</p>
+        <span itemprop="articleBody"><p>主要通过360的手机查询接口获取到手机归属地。<br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> net.sf.json.JSONObject;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpClient;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpException;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.HttpMethod;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.NameValuePair;</div><div class="line"><span class="keyword">import</span> org.apache.commons.httpclient.methods.GetMethod;</div><div class="line"><span class="keyword">import</span> org.apache.commons.lang.StringUtils;  </div><div class="line">  </div><div class="line"><span class="comment">/**</span></div><div class="line"> * 手机信息查询工具类，主要实现根据手机号码查询手机归属地等信息。 </div><div class="line"> *  </div><div class="line"> * <span class="doctag">@author</span> Homiss</div><div class="line"> * <span class="doctag">@time</span> 2017-05-24</div><div class="line"> */  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MobilePhoneTool</span> </span>&#123;  </div><div class="line">    <span class="comment">/** </span></div><div class="line">     * 手机信息查询全局变量 </div><div class="line">     */  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL = <span class="string">"http://cx.shouji.360.cn/phonearea.php?number=17628294089"</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 响应包编码方式 </div><div class="line">     */  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String responseCharset = <span class="string">"UTF-8"</span>;  </div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">getMobilePhone</span><span class="params">(String phone_number)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(<span class="string">"phone_number"</span>)) <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        HttpClient client = <span class="keyword">new</span> HttpClient();  </div><div class="line">        <span class="comment">// get方式</span></div><div class="line">        HttpMethod method = <span class="keyword">new</span> GetMethod(URL);  </div><div class="line">        <span class="keyword">try</span> &#123;  </div><div class="line">            <span class="comment">// 设置get参数  </span></div><div class="line">            NameValuePair m = <span class="keyword">new</span> NameValuePair(<span class="string">"number"</span>, phone_number);</div><div class="line">            method.setQueryString(<span class="keyword">new</span> NameValuePair[] &#123; m &#125;);</div><div class="line">            <span class="comment">// 服务器返回的状态(200:ok)</span></div><div class="line">            <span class="keyword">int</span> statusCode = client.executeMethod(method);  </div><div class="line"></div><div class="line">            <span class="keyword">if</span> (statusCode == <span class="number">200</span>) &#123;</div><div class="line">                <span class="comment">// 服务器返回的信息  </span></div><div class="line">                String responseBody = <span class="keyword">new</span> String(method.getResponseBody(), responseCharset);  </div><div class="line">                <span class="keyword">if</span> (StringUtils.isNotEmpty(responseBody)) &#123;  </div><div class="line">                    JSONObject json = JSONObject.fromObject(responseBody);</div><div class="line">                    JSONObject obj = json.getJSONObject(<span class="string">"data"</span>);</div><div class="line">                    <span class="keyword">return</span> obj;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                System.out.println(<span class="string">"查询失败"</span>);  </div><div class="line">            &#125;  </div><div class="line">        &#125; <span class="keyword">catch</span> (HttpException e) &#123;  </div><div class="line">            e.printStackTrace();  </div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;  </div><div class="line">            e.printStackTrace();  </div><div class="line">        &#125; <span class="keyword">finally</span> &#123;  </div><div class="line">            <span class="comment">// 释放连接  </span></div><div class="line">            method.releaseConnection();  </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        JSONObject result = MobilePhoneTool.getMobilePhone(<span class="string">"17628294088"</span>);</div><div class="line">        System.out.println(result);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -292,7 +288,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Exception/" rel="tag">#Exception</a>
+            <a href="/tags/小功能/" rel="tag">#小功能</a>
           
         </div>
       
@@ -301,17 +297,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/15/Spring+mybatis配置文件打印sql语句/" rel="next" title="Spring+mybatis配置文件打印sql语句">
-                <i class="fa fa-chevron-left"></i> Spring+mybatis配置文件打印sql语句
+              <a href="/2017/05/11/Spring AOP完成方法参数验证/" rel="next" title="Spring AOP完成方法参数验证">
+                <i class="fa fa-chevron-left"></i> Spring AOP完成方法参数验证
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/26/Java UU163接口接入/" rel="prev" title="Java UU163接口接入.md">
-                Java UU163接口接入.md <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -507,9 +499,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'homiss';
-      var disqus_identifier = '2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/';
-      var disqus_title = 'Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN';
-      var disqus_url = 'http://homiss.me/2015/12/13/Can't find bundle for base name javax.servlet.LocalStrings, locale zh_CN/';
+      var disqus_identifier = '2017/06/10/Java通过手机号获取归属地/';
+      var disqus_title = 'Java通过手机号获取归属地';
+      var disqus_url = 'http://homiss.me/2017/06/10/Java通过手机号获取归属地/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
