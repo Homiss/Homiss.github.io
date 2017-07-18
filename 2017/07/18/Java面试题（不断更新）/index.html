@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="微信 公众号支付 JsAPI," />
+  <meta name="keywords" content="Java面试题," />
 
 
 
@@ -51,19 +51,17 @@
 
 
 
-<meta name="description" content="开发微信公众号支付功能真的有种整个世界都黑暗的感觉，真的，跟支付宝比起来，微信真是渣渣。 上次开发微信扫码支付还好，虽然也踩了很多坑，但每次至少能知道大概的错误原因，而这次开发微信公众号支付，我整个人都蒙逼了好吧！！！提示的错误信息根本就没用好吧！！！每次最幸福莫过于找到bug，而最痛苦的事莫过于好不容易找到了bug，发现又掉另一个坑里了！囧。。。">
-<meta name="keywords" content="微信 公众号支付 JsAPI">
+<meta name="description" content="统一收集整理所有Java相关的面试题。github地址：https://github.com/Homiss/Java-interview-questions如果觉得对你有用，给个star吧。">
+<meta name="keywords" content="Java面试题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java版 网站微信公众号支付实现">
-<meta property="og:url" content="http://homiss.me/2016/01/20/Java版 网站微信公众号支付实现/index.html">
+<meta property="og:title" content="HashMap源码阅读">
+<meta property="og:url" content="http://homiss.me/2017/07/18/Java面试题（不断更新）/index.html">
 <meta property="og:site_name" content="Homiss">
-<meta property="og:description" content="开发微信公众号支付功能真的有种整个世界都黑暗的感觉，真的，跟支付宝比起来，微信真是渣渣。 上次开发微信扫码支付还好，虽然也踩了很多坑，但每次至少能知道大概的错误原因，而这次开发微信公众号支付，我整个人都蒙逼了好吧！！！提示的错误信息根本就没用好吧！！！每次最幸福莫过于找到bug，而最痛苦的事莫过于好不容易找到了bug，发现又掉另一个坑里了！囧。。。">
-<meta property="og:image" content="http://7pulh4.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%94%AF%E4%BB%981.png">
-<meta property="og:updated_time" content="2017-05-19T09:39:17.000Z">
+<meta property="og:description" content="统一收集整理所有Java相关的面试题。github地址：https://github.com/Homiss/Java-interview-questions如果觉得对你有用，给个star吧。">
+<meta property="og:updated_time" content="2017-07-18T12:44:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java版 网站微信公众号支付实现">
-<meta name="twitter:description" content="开发微信公众号支付功能真的有种整个世界都黑暗的感觉，真的，跟支付宝比起来，微信真是渣渣。 上次开发微信扫码支付还好，虽然也踩了很多坑，但每次至少能知道大概的错误原因，而这次开发微信公众号支付，我整个人都蒙逼了好吧！！！提示的错误信息根本就没用好吧！！！每次最幸福莫过于找到bug，而最痛苦的事莫过于好不容易找到了bug，发现又掉另一个坑里了！囧。。。">
-<meta name="twitter:image" content="http://7pulh4.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%94%AF%E4%BB%981.png">
+<meta name="twitter:title" content="HashMap源码阅读">
+<meta name="twitter:description" content="统一收集整理所有Java相关的面试题。github地址：https://github.com/Homiss/Java-interview-questions如果觉得对你有用，给个star吧。">
 
 
 
@@ -75,7 +73,7 @@
   };
 </script>
 
-  <title> Java版 网站微信公众号支付实现 | Homiss </title>
+  <title> HashMap源码阅读 | Homiss </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +223,7 @@
             
             
               
-                Java版 网站微信公众号支付实现
+                HashMap源码阅读
               
             
           </h1>
@@ -234,8 +232,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-20T15:38:13+08:00" content="2016-01-20">
-              2016-01-20
+            <time itemprop="dateCreated" datetime="2017-07-18T20:37:23+08:00" content="2017-07-18">
+              2017-07-18
             </time>
           </span>
 
@@ -244,8 +242,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java三方平台/" itemprop="url" rel="index">
-                    <span itemprop="name">Java三方平台</span>
+                  <a href="/categories/Java面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">Java面试题</span>
                   </a>
                 </span>
 
@@ -260,8 +258,8 @@
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/01/20/Java版 网站微信公众号支付实现/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/20/Java版 网站微信公众号支付实现/" itemprop="commentsCount"></span>
+              <a href="/2017/07/18/Java面试题（不断更新）/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/18/Java面试题（不断更新）/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -280,19 +278,47 @@
       
 
       
-        <span itemprop="articleBody"><p>开发微信公众号支付功能真的有种整个世界都黑暗的感觉，真的，跟支付宝比起来，微信真是渣渣。</p>
-<p>上次开发微信扫码支付还好，虽然也踩了很多坑，但每次至少能知道大概的错误原因，而这次开发微信公众号支付，我整个人都蒙逼了好吧！！！提示的错误信息根本就没用好吧！！！每次最幸福莫过于找到bug，而最痛苦的事莫过于好不容易找到了bug，发现又掉另一个坑里了！囧。。。</p>
-<a id="more"></a>
-<p>基本的流程可以看： <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=7_1" target="_blank" rel="external">微信公众号支付文档</a></p>
-<h3 id="统一下单中扫码支付和公众号支付是有不同的"><a href="#统一下单中扫码支付和公众号支付是有不同的" class="headerlink" title="统一下单中扫码支付和公众号支付是有不同的"></a>统一下单中扫码支付和公众号支付是有不同的</h3><p>这个是我当时遇到最大的一个坑，因为我最初做了扫码支付的原因，有些先入为主，看到扫码支付和公众号支付第一步都是调用的统一下单，当时心里还挺兴奋的，简单到爆有木有！！！直接搬前面做过的代码有木有！！！</p>
-<p>就是因为这样，后来调试一直调用支付失败，我都快疯了！！最坑爹是安卓版微信错误提示信息就是一坨翔！说了跟没说一样！！！搞了一天各种谷歌百度，各种修改代码，各种部署上服务器调试，依旧不行。</p>
-<p>后来查到IOS系统的微信有详细的错误提示信息，终于发现是请求参数中的trade_type错误<br><img src="http://7pulh4.com1.z0.glb.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%94%AF%E4%BB%981.png" alt="微信公众号支付1"></p>
+        <span itemprop="articleBody"><p>统一收集整理所有Java相关的面试题。<br>github地址：<a href="https://github.com/Homiss/Java-interview-questions" target="_blank" rel="external">https://github.com/Homiss/Java-interview-questions</a><br>如果觉得对你有用，给个star吧。<br><a id="more"></a></p>
 <ul>
-<li>扫码支付的是 ： NATIVE</li>
-<li>APP接入的是 ： APP</li>
-<li>公众号支付是 ： JSAPI</li>
+<li>[x] 面向对象<ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="external">面向对象面试题</a> </li>
 </ul>
-<p>当然，微信文档里写的挺清楚的，这次是我自己的原因，但是我想吐槽的是安卓系统的微信错误信息提示真心丑！根本没办法根据它的错误信息来找到错误的原因，后来调试基本使用IOS系统的微信，基本能准确的提示出错误信息，后面虽然也遇到了很多问题，但至少能够一步步改，不用乱碰运气！</p>
+</li>
+<li>[ ] UML介绍    </li>
+<li>[ ] 设计模式</li>
+<li>[ ] Java8</li>
+<li>[ ] 对象与垃圾回收</li>
+<li>[x] 集合<ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E9%9B%86%E5%90%88/%E9%9B%86%E5%90%88%E7%9B%B8%E5%85%B3.md" target="_blank" rel="external">集合面试题</a></li>
+</ul>
+</li>
+<li>[ ] 泛型</li>
+<li>[ ] 类加载机制与反射</li>
+<li>[ ] 网络编程 tcp udp</li>
+<li>[x] 多线程<ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%28%E4%B8%80%29.md" target="_blank" rel="external">Java面试题之多线程(一)</a></li>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%28%E4%BA%8C%29.md" target="_blank" rel="external">Java面试题之多线程(二)</a></li>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E5%A4%9A%E7%BA%BF%E7%A8%8B/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%28%E4%B8%89%29.md" target="_blank" rel="external">Java面试题之多线程(三)</a></li>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/JVM/JVM%E9%9D%A2%E8%AF%95%E9%A2%98.md" target="_blank" rel="external">Java面试题之多线程(四)</a></li>
+</ul>
+</li>
+<li>[ ] I／O</li>
+<li>[ ] Annotation</li>
+<li>[ ] JDBC</li>
+<li>[ ] 异常处理</li>
+<li>[x] JVM<ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.md" target="_blank" rel="external">JVM面试题</a> </li>
+</ul>
+</li>
+<li>[ ] 框架<ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E6%A1%86%E6%9E%B6/Spring%20%E9%9D%A2%E8%AF%95%E9%A2%98.md" target="_blank" rel="external">Spring 面试题</a></li>
+</ul>
+</li>
+<li>[ ] 算法 <ul>
+<li><a href="https://github.com/Homiss/Java-interview-questions/blob/master/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.md" target="_blank" rel="external">排序算法</a> </li>
+</ul>
+</li>
+</ul>
 </span>
       
     </div>
@@ -301,7 +327,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/微信-公众号支付-JsAPI/" rel="tag">#微信 公众号支付 JsAPI</a>
+            <a href="/tags/Java面试题/" rel="tag">#Java面试题</a>
           
         </div>
       
@@ -310,17 +336,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/01/Java版-网站微信扫码支付功能实现以及回调教程/" rel="next" title="Java 网站微信扫码支付功能实现以及回调教程">
-                <i class="fa fa-chevron-left"></i> Java 网站微信扫码支付功能实现以及回调教程
+              <a href="/2017/06/14/Java POI读取excel/" rel="next" title="Java POI读取excel">
+                <i class="fa fa-chevron-left"></i> Java POI读取excel
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/08/新年随便写写/" rel="prev" title="新年随便写写">
-                新年随便写写 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -456,7 +478,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#统一下单中扫码支付和公众号支付是有不同的"><span class="nav-number">1.</span> <span class="nav-text">统一下单中扫码支付和公众号支付是有不同的</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -516,9 +538,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'homiss';
-      var disqus_identifier = '2016/01/20/Java版 网站微信公众号支付实现/';
-      var disqus_title = 'Java版 网站微信公众号支付实现';
-      var disqus_url = 'http://homiss.me/2016/01/20/Java版 网站微信公众号支付实现/';
+      var disqus_identifier = '2017/07/18/Java面试题（不断更新）/';
+      var disqus_title = 'HashMap源码阅读';
+      var disqus_url = 'http://homiss.me/2017/07/18/Java面试题（不断更新）/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

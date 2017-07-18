@@ -230,6 +230,125 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/22/mybatis+oracle插入数据后返回对应id/" itemprop="url">
+                  mybatis+oracle插入数据后返回对应id
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-07-22T10:23:21+08:00" content="2015-07-22">
+              2015-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
+                    <span itemprop="name">Mybatis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/07/22/mybatis+oracle插入数据后返回对应id/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/22/mybatis+oracle插入数据后返回对应id/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>首先说一下关于oracle的sequence的知识</p>
+</blockquote>
+<p>在oracle中，没有像MySQL的id自增，可以通过sequence来实现自增的功能。<br>在控制台中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE SEQUENCE  SEQ_USER_ID  MINVALUE 1 MAXVALUE 99999999999 INCREMENT BY 1 START WITH 1 CACHE 200 NOORDER  NOCYCLE</div></pre></td></tr></table></figure></p>
+<blockquote>
+<ul>
+<li>SEQ_USER_ID表示对应的sequence名字</li>
+<li>MINVALUE 1：最小值1</li>
+<li>MAXVALUE 99999999999：最大值为99999999999</li>
+<li>INCREMENT BY 1：每次自增1，</li>
+<li>START WITH 1：从1开始</li>
+<li>CACHE 200：设置缓存cache个序列，如果系统down掉了或者其它情况将会导致序列不连续，也可以设置为NOCACHE</li>
+<li>NOCYCLE：一直累加，不循环</li>
+<li>ORDER ：指定order条件保证序列按请求顺序生成。此条件适用于RAC环境。</li>
+<li>NOORDER ：不保证序列按请求顺序生成。</li>
+</ul>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/22/mybatis+oracle插入数据后返回对应id/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/05/31/用Java自建个简易的网页版新浪微博/" itemprop="url">
                   用Java自建个简易的网页版新浪微博
                 </a>
@@ -361,21 +480,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
